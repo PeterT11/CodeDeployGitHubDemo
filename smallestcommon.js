@@ -1,39 +1,32 @@
+function findFactors(fArr, num) { //find all factors of a number and keep them in an array;
+  var finded = false;
+  if(num<2) return; //no factors if num less 2;
+  for (var i = 2; i <= num / 2; i++) {  //start try from 2;
+    if (num % i === 0 ) {   //if i is a factor of num
+      finded = true;
+      fArr.push(i);
+      findFactors(fArr, num / i);  //recursive call to find remain factors;
+      return;
+    } //if
+  }// for
+  if(!finded) fArr.push(num);  
+} //end of findFactors;
+
 function smallestCommons(arr) {
-  var factors = []; //At least 1 is a factor;
-
-  function findFactors(fArr, num) {
-    var finded = false;
-    for (var i = 2; i <= num / 2; i++) {
-      if (num % i === 0 ) {
-        finded == true;
-        fArr.push(i);
-        console.log("for",i,num,fArr);
-        findFactors(fArr, num / i);
-        return;
-      } //if
-    }// for
-    if(!finded) fArr.push(num);  
-  } //end of findFactors;
- // findFactors(factors,100);
-  //console.log(factors);
-  
-  var min = (arr[0]<=arr[1])?arr[0]:arr[1];
-  var max = (arr[0]<=arr[1])?arr[1]:arr[0];
-  //console.log(min,max);
-
-  for(var i= min; i<= max; i++)
-  {
-      var t =i;
-      for(var j=0; j<factors.length;j++)
-        if(t%factors[j]==0) t /= factors[j];
-      findFactors(factors,t);
-  }
-  for(var i=0; i<factors.length;i++){
-
-}
- //   findComms(factors,i);
-  console.log(factors);
-  return factors;
+ var factors = [];   
+  arr = arr.sort((a,b)=>a-b);
+ for(var i= arr[0]; i<= arr[1]; i++)
+ {
+     var t =i; //temperory variable to keep the remain.
+     for(var j=0; j<factors.length;j++)
+       if(t%factors[j]===0) t /= factors[j];//remove the factors alrady exist in factors[];
+     findFactors(factors,t); //find the factors for the remain.
+ }
+ var sum =1;
+ for(i=0; i<factors.length;i++){
+   sum *= factors[i];
+ }
+ return sum;
 }
 
-smallestCommons([1, 7]);
+smallestCommons([1, 13]);
