@@ -1,0 +1,17 @@
+function permAlone(str) {
+  var cnt = 0;
+  const check = (a, b) => {
+    if (b.length == 1)   return b[0] == a[a.length-1]? cnt:cnt++;
+    for (var i = 0; i < b.length; i++) {
+      if(b[i] === a[a.length-1]) continue;
+      let a1 = a+b[i];
+      let b1 = b.slice(0,i)+b.slice(i+1);
+      check(a1, b1);
+    }// for
+    return cnt;
+  }; // recursive
+
+  return check('',str);  
+}
+
+permAlone('ab');
